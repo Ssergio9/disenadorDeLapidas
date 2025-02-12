@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diseñador de Lápidas</title>
+    <link rel="icon" type="image/png" href="./assets/icons/Lapidas.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="design-area">
+            <h2>Área de Diseño</h2>
+            <div class="dimension-controls">
+                <div class="dimension-input">
+                    <label for="width">Ancho (cm):</label>
+                    <input type="number" id="width" value="60">
+                </div>
+                <div class="dimension-input">
+                    <label for="height">Alto (cm):</label>
+                    <input type="number" id="height" value="40">
+                </div>
+                <div class="dimension-input">
+                    <label for="dimensionesStandar">Dimensiones Standar:</label>
+                    <select id="standardSizes">
+                        <option value="60x40">Lapida small: 60x40 cm</option>
+                        <option value="60x60">Lapida standar: 60x60 cm</option>
+                        <option value="120x60">Lapida doble: 120x60 cm</option>
+                        <option value="120x40">Lapida mini: 120x40 cm</option>
+                    </select>
+                </div>
+            </div>
+
+            <div id="designCanvas" class="canvas"></div>
+        </div>
+
+        <div class="catalog">
+            <h2>Catálogo</h2>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="colors">Colores</button>
+                <button class="tab-button" data-tab="figures">Figuras</button>
+                <button class="tab-button" data-tab="images">Imágenes</button>
+                <button class="tab-button" data-tab="texts">Textos</button>
+                <button class="tab-button" data-tab="summary">Ver Resumen</button>
+            </div>
+
+            <div class="tab-content" id="colors">
+                <h3>Colores</h3>
+                <div class="hr-with-text">
+                    <span>Lapidas claras</span>
+                </div>
+                <div class="color-grid">
+                    <div class="color-option" data-image="./assets/images/marmol-blanco-marmara.jpg">
+                        <img src="./assets/images/marmol-blanco-marmara.jpg" alt="Blanco Marmara">
+                        <p>Blanco Marmara</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-gris-marengo.jpg">
+                        <img src="./assets/images/marmol-gris-marengo.jpg" alt="Gris Marengo">
+                        <p>Gris Marengo</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-gris-pietra-grey.jpg">
+                        <img src="./assets/images/marmol-gris-pietra-grey.jpg" alt="Gris Pietra">
+                        <p>Gris Pietra</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-marron-emperador.jpg">
+                        <img src="./assets/images/marmol-marron-emperador.jpg" alt="Negro Calatorao">
+                        <p>Negro Calatorao</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-negro-calatorao.jpg">
+                        <img src="./assets/images/marmol-negro-calatorao.jpg" alt="Volakas">
+                        <p>Volakas</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-volakas.jpg">
+                        <img src="./assets/images/marmol-volakas.jpg" alt="Marrón Emperador">
+                        <p>Marrón Emperador</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-blanco-marmara.jpg">
+                        <img src="./assets/images/marmol-blanco-marmara.jpg" alt="Blanco Marmara">
+                        <p>Blanco Marmara</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-gris-marengo.jpg">
+                        <img src="./assets/images/marmol-gris-marengo.jpg" alt="Gris Marengo">
+                        <p>Gris Marengo</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-gris-pietra-grey.jpg">
+                        <img src="./assets/images/marmol-gris-pietra-grey.jpg" alt="Gris Pietra">
+                        <p>Gris Pietra</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-marron-emperador.jpg">
+                        <img src="./assets/images/marmol-marron-emperador.jpg" alt="Negro Calatorao">
+                        <p>Negro Calatorao</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-negro-calatorao.jpg">
+                        <img src="./assets/images/marmol-negro-calatorao.jpg" alt="Volakas">
+                        <p>Volakas</p>
+                    </div>
+                    <div class="color-option" data-image="./assets/images/marmol-volakas.jpg">
+                        <img src="./assets/images/marmol-volakas.jpg" alt="Marrón Emperador">
+                        <p>Marrón Emperador</p>
+                    </div>
+                    <div class="color-option"
+                        data-image="./assets/images/producto-marmol-negro-marquina-pulycort-1.jpg">
+                        <img src="./assets/images/producto-marmol-negro-marquina-pulycort-1.jpg" alt="Negro Marquina">
+                        <p>Negro Marquina</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="figures" style="display: none;">
+                <h3>Figuras</h3>
+                <div class="figure-grid">
+                    <div class="figure-option" data-image="./assets/images/A.png">
+                        <img src="./assets/images/A.png" alt="Figura A">
+                        <p>Figura A</p>
+                    </div>
+                    <div class="figure-option" data-image="./assets/images/images.png">
+                        <img src="./assets/images/images.png" alt="Figura B">
+                        <p>Maria y Jesus</p>
+                    </div>
+                    <div class="figure-option" data-image="./assets/images/min-arena_cruz_06.png">
+                        <img src="./assets/images/min-arena_cruz_06.png" alt="Figura C">
+                        <p>Cruz</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="images" style="display: none;">
+                <h3>Imágenes</h3>
+                <div class="hr-with-text">
+                    <span>Ingresa retrado</span>
+                </div>
+                <div class="image-controls">
+                    <button id="addImage" class="catalog-button"><i class="fa fa-image"></i> Agregar Imagen</button>
+                    <button id="deleteElement" class="catalog-button delete-button"><i class="fas fa-trash"></i>
+                        Eliminar
+                        Imagen</button>
+                </div>
+                <p class="image-alert">"Tenga en cuenta que la imagen utilizada para la lápida debe ser de alta
+                    resolución y mostrar con claridad a su ser querido, ya que será empleada para realzar y embellecer
+                    el diseño final."</p>
+            </div>
+
+            <div class="tab-content" id="texts" style="display: none;">
+                <h3>Textos</h3>
+                <div class="text-controls">
+                    <div class="hr-with-text">
+                        <span>Texto de lapida</span>
+                    </div>
+
+                    <div class="add-buttons">
+                        <button id="addName" class="catalog-button"><i class="fa fa-font"></i> Agregar Nombre</button>
+                        <button id="addDedication" class="catalog-button"><i class="fa fa-font"></i> Agregar
+                            Dedicatoria</button>
+                        <button id="addDate" class="catalog-button"><i class="fa fa-font"></i> Agregar Fecha</button>
+                    </div>
+                    <div class="hr-with-text">
+                        <span>Estilos generales</span>
+                    </div>
+
+                    <div class="select-controls">
+                        <div class="text-option">
+                            <label for="textFont">Fuente:</label>
+                            <select id="textFont">
+                                <option value="fuente1">Fuente 1</option>
+                                <option value="fuente2">Fuente 2</option>
+                                <option value="fuente3">Fuente 3</option>
+                                <option value="fuente4">Fuente 4</option>
+                                <option value="fuente5">Fuente 5</option>
+                            </select>
+                        </div>
+
+                        <div class="text-option">
+                            <label for="textSize">Tamaño (cm):</label>
+                            <select id="textSize">
+                                <option value="2">2 cm</option>
+                                <option value="3">3 cm</option>
+                                <option value="4">4 cm</option>
+                                <option value="5">5 cm</option>
+                                <option value="6">6 cm</option>
+                                <option value="7">7 cm</option>
+                                <option value="8">8 cm</option>
+                            </select>
+                        </div>
+
+                        <div class="text-option">
+                            <label for="textAlign">Alineación:</label>
+                            <select id="textAlign">
+                                <option value="center">Centro</option>
+                                <option value="left">Izquierda</option>
+                                <option value="right">Derecha</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="hr-with-text">
+                        <span>Boton eliminar en general</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="tab-content" id="summary" style="display: none;">
+                <h3>Ver Resumen</h3>
+                <div id="summary-details">
+                    <p>Color de fondo ........................... <span id="summary-color">Ninguno</span></p>
+                    <p>Dimensiones ....................................... <span id="summary-dimensions">60cm x
+                            40cm</span></p>
+                    <p>Figuras ...................................... <span id="summary-figures">Ninguna</span></p>
+                    <p>Textos .......................................... <span id="summary-texts">Ninguno</span></p>
+
+                    <p>Kit de instalación (
+                        <a href="#" id="kit-info-link"><i class="fas fa-info-circle"></i></a>
+                        ) ............... <span id="summary-kit-price">[$Valor]</span>
+                    </p>
+
+                    <div class="summary-prices">
+                        <h4>🔹 Precios 🔹</h4>
+                        <p>Color de fondo ........................... <span id="summary-color-price">[$Valor]</span></p>
+                        <p>Dimensiones ....................................... <span
+                                id="summary-dimensions-price">[$Valor]</span>
+                        </p>
+                        <p>Figuras ...................................... <span
+                                id="summary-figures-price">[$Valor]</span></p>
+                        <p>Textos .......................................... <span
+                                id="summary-texts-price">[$Valor]</span></p>
+                        <p>Kit de instalación (
+                            <a href="#" id="kit-info-link2"><i class="fas fa-info-circle"></i></a>
+                            ) ............... <span id="summary-kit-price2">[$Valor]</span>
+                        </p>
+                    </div>
+
+                    <p class="total">Costo Total: ............................................ <span
+                            id="summary-cost">$1000</span>
+                    </p>
+                </div>
+
+                <div id="kit-info-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-button">×</span>
+                        <h3>Kit de Instalación Incluye:</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Elemento</th>
+                                    <th>Descripción</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Instrucciones detalladas</td>
+                                    <td>Guía paso a paso para la instalación.</td>
+                                </tr>
+                                <tr>
+                                    <td>Herramientas básicas</td>
+                                    <td>Kit de herramientas esenciales (destornillador, llave, etc.).</td>
+                                </tr>
+                                <tr>
+                                    <td>Adhesivo especial</td>
+                                    <td>Adhesivo de alta resistencia para asegurar la lápida.</td>
+                                </tr>
+                                <tr>
+                                    <td>Guantes de protección</td>
+                                    <td>Protección para las manos durante la instalación.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
