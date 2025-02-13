@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', function () {
     let isResizing = false;
     let offsetX, offsetY;
     let shape = 'round';
+    let selectedColorName = 'Ninguno';
+    let numFigures = 0;  // Contador para figuras
+    let numPortraits = 0; // Contador para retratos
     const scaleFactor = 0.25;
 
     updateCanvasSize();
@@ -146,6 +149,9 @@ document.addEventListener('DOMContentLoaded', function () {
         canvas.appendChild(figureElement);
         makeDraggable(figureElement);
         selectElement(figureElement);
+
+        // Incrementar el contador de figuras
+        numFigures++;
         updateSummary();
     }
 
@@ -160,12 +166,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function updateSummary() {
-        summaryColor.textContent = canvas.style.backgroundImage ? 'Seleccionado' : 'Ninguno';
+        // Actualizar color y dimensiones
+        summaryColor.textContent = selectedColorName;
         summaryDimensions.textContent = `${widthInput.value}cm x ${heightInput.value}cm`;
-        const figures = canvas.querySelectorAll('.draggable img[src^="images/"]');
-        summaryFigures.textContent = figures.length > 0 ? `${figures.length} figura(s)` : 'Ninguna';
+
+        // Actualizar figuras
+        if (numFigures === 1) {
+            document.getElementById('summary-figures').textContent = `${numFigures} figura`; // Singular
+        } else if (numFigures > 1) {
+            document.getElementById('summary-figures').textContent = `${numFigures} figuras`; // Plural
+        } else {
+            document.getElementById('summary-figures').textContent = 'Ninguna'; // Ninguna
+        }
+
+        // Actualizar retratos
+        if (numPortraits === 1) {
+            document.getElementById('summary-portraits').textContent = `${numPortraits} retrato`; // Singular
+        } else if (numPortraits > 1) {
+            document.getElementById('summary-portraits').textContent = `${numPortraits} retratos`; // Plural
+        } else {
+            document.getElementById('summary-portraits').textContent = 'Ninguna'; // Ninguna
+        }
+
+        // Actualizar textos
         const texts = canvas.querySelectorAll('.text-element');
-        summaryTexts.textContent = texts.length > 0 ? `${texts.length} texto(s)` : 'Ninguno';
+        if (texts.length === 1) {
+            summaryTexts.textContent = `${texts.length} texto`; // Singular
+        } else if (texts.length > 1) {
+            summaryTexts.textContent = `${texts.length} textos`; // Plural
+        } else {
+            summaryTexts.textContent = 'Ninguno'; // Ninguno
+        }
     }
 
     widthInput.addEventListener('change', () => {
@@ -196,8 +227,10 @@ document.addEventListener('DOMContentLoaded', function () {
     colorOptions.forEach(option => {
         option.addEventListener('click', () => {
             const imageUrl = option.dataset.image;
+            const colorName = option.querySelector('p').textContent; // Obtener el nombre del color
             canvas.style.backgroundImage = `url('${imageUrl}')`;
             canvas.style.backgroundColor = "";
+            selectedColorName = colorName; // Actualizar la variable del nombre del color
             updateSummary();
         });
     });
@@ -251,17 +284,26 @@ document.addEventListener('DOMContentLoaded', function () {
                     canvas.appendChild(imageElement);
                     makeDraggable(imageElement);
                     selectElement(imageElement);
-                    updateSummary();
 
-                }
+                    // Incrementar el contador de retratos
+                    numPortraits++;
+                    updateSummary();
+                };
                 reader.readAsDataURL(file);
             }
-        }
+        };
         input.click();
     });
 
     deleteElementButton.addEventListener('click', () => {
         if (selectedElement) {
+            if (selectedElement.querySelector('img[src^="assets/images/"]')) {
+                // Si es una figura, decrementar el contador de figuras
+                numFigures--;
+            } else if (selectedElement.querySelector('img[src^="data:image/"]')) {
+                // Si es un retrato, decrementar el contador de retratos
+                numPortraits--;
+            }
             selectedElement.remove();
             selectedElement = null;
             updateSummary();
