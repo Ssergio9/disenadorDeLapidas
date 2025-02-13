@@ -54,15 +54,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    function addTextToCanvas(text) {
+    function addTextToCanvas(text, position) {
         const textElement = document.createElement('div');
         textElement.classList.add('draggable', 'text-element');
         textElement.style.color = 'black';
         textElement.style.fontSize = '20px';
         textElement.textContent = text;
         textElement.style.position = 'absolute';
-        textElement.style.left = '50px';
-        textElement.style.top = '50px';
+        textElement.style.textAlign = 'center'; // Añadido: Centrar el texto horizontalmente
+
+        // Posicionamiento del texto
+        switch (position) {
+            case 'top':
+                textElement.style.left = '50%';
+                textElement.style.top = '10%'; // Ajusta este valor según sea necesario
+                textElement.style.transform = 'translate(-50%, -10%)';
+                break;
+            case 'middle':
+                textElement.style.left = '50%';
+                textElement.style.top = '50%';
+                textElement.style.transform = 'translate(-50%, -50%)';
+                break;
+            case 'bottom':
+                textElement.style.left = '50%';
+                textElement.style.bottom = '10%'; // Ajusta este valor según sea necesario
+                textElement.style.transform = 'translate(-50%, 10%)';
+                break;
+            default:
+                textElement.style.left = '50px';
+                textElement.style.top = '50px';
+        }
+
         canvas.appendChild(textElement);
         makeDraggable(textElement);
         selectElement(textElement);
@@ -246,9 +268,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    addNameButton.addEventListener('click', () => addTextToCanvas('Nombre'));
-    addDedicationButton.addEventListener('click', () => addTextToCanvas('Dedicatoria'));
-    addDateButton.addEventListener('click', () => addTextToCanvas('Fecha'));
+    addNameButton.addEventListener('click', () => addTextToCanvas('Nombre', 'top'));
+    addDedicationButton.addEventListener('click', () => addTextToCanvas('Dedicatoria', 'middle'));
+    addDateButton.addEventListener('click', () => addTextToCanvas('Fecha', 'bottom'));
 
     deleteFigureButton.addEventListener('click', () => {
         if (selectedElement && selectedElement.querySelector('img[src^="images/"]')) {
@@ -286,8 +308,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
         element.appendChild(controls);
 
-        deleteControl.addEventListener('click', function (e) {
+        deleteControl.addEventListener('mousedown', function (e) {
             e.stopPropagation();
+            console.log('Delete button clicked');
             element.remove();
             selectedElement = null;
         });
