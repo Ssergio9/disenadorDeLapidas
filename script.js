@@ -23,6 +23,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const deleteTextButton = document.createElement('button');
     deleteTextButton.textContent = 'Eliminar Texto';
     deleteTextButton.classList.add('catalog-button', 'delete-text-button');
+
+    const textFontSelect = document.getElementById('textFont');
+    const textSizeSelect = document.getElementById('textSize');
+    const textAlignSelect = document.getElementById('textAlign');
+
     let selectedElement = null;
     let isDragging = false;
     let isResizing = false;
@@ -32,6 +37,22 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateCanvasSize();
     updateSummary();
+
+    function deselectAll() {
+        if (selectedElement) {
+            selectedElement.classList.remove('selected');
+            if (selectedElement.querySelector('.controls')) {
+                selectedElement.querySelector('.controls').remove();
+            }
+            selectedElement = null;
+        }
+    }
+
+    canvas.addEventListener('click', function (e) {
+        if (e.target === canvas) {
+            deselectAll();
+        }
+    });
 
     function addTextToCanvas(text) {
         const textElement = document.createElement('div');
@@ -45,8 +66,45 @@ document.addEventListener('DOMContentLoaded', function () {
         canvas.appendChild(textElement);
         makeDraggable(textElement);
         selectElement(textElement);
+        applyTextStyle(textElement);
         updateSummary();
     }
+
+    function applyTextStyle(element) {
+        if (!element || !element.classList.contains('text-element')) return;
+
+        const font = textFontSelect.value;
+        const sizeCm = parseFloat(textSizeSelect.value);
+        const heightCm = parseFloat(heightInput.value);
+
+        if (isNaN(sizeCm) || isNaN(heightCm) || heightCm === 0) return;
+
+        // Ajustar el tamaño de la fuente en proporción a la altura del lienzo
+        const sizeRatio = sizeCm / heightCm;
+        const sizePx = sizeRatio * canvas.offsetHeight;
+
+        element.style.fontFamily = font;
+        element.style.fontSize = sizePx + 'px';
+        element.style.textAlign = textAlignSelect.value;
+    }
+
+    textFontSelect.addEventListener('change', () => {
+        if (selectedElement && selectedElement.classList.contains('text-element')) {
+            applyTextStyle(selectedElement);
+        }
+    });
+
+    textSizeSelect.addEventListener('change', () => {
+        if (selectedElement && selectedElement.classList.contains('text-element')) {
+            applyTextStyle(selectedElement);
+        }
+    });
+
+    textAlignSelect.addEventListener('change', () => {
+        if (selectedElement && selectedElement.classList.contains('text-element')) {
+            applyTextStyle(selectedElement);
+        }
+    });
 
     function addFigureToCanvas(imageUrl) {
         const figureElement = document.createElement('div');
@@ -93,8 +151,7 @@ document.addEventListener('DOMContentLoaded', function () {
         updateSummary();
     });
     heightInput.addEventListener('change', () => {
-        updateCanvasSize();
-        updateSummary();
+        document.querySelectorAll('.text-element').forEach(applyTextStyle);
     });
 
     standardSizesSelect.addEventListener('change', () => {
@@ -249,21 +306,15 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function selectElement(element) {
-        if (selectedElement) {
-            selectedElement.classList.remove('selected');
-            if (selectedElement.querySelector('.controls')) {
-                selectedElement.querySelector('.controls').remove();
-            }
-        }
-
+        deselectAll();
         selectedElement = element;
         selectedElement.classList.add('selected');
         createControls(selectedElement);
-
         if (selectedElement.classList.contains('text-element')) {
             selectedElement.setAttribute('contenteditable', 'true');
             selectedElement.focus();
             placeCaretAtEnd(selectedElement);
+            applyTextStyle(selectedElement);
         }
     }
 
